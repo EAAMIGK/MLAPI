@@ -21,6 +21,10 @@ const analyzeRouter = require("./routes/analyze.js");
 app.use("/api/auth", authRoutes); //http://localhost:3001/api/auth/register
 app.use("/api/analysis", analyzeRouter);
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 // Replace 'your-bucket-name' with your actual bucket name
 const bucketName = "buckettomatprojekt";
 const storage = new Storage({
