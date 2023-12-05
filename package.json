@@ -1,0 +1,24 @@
+{
+  "name": "react-course",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@google-cloud/storage": "^7.7.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.2",
+    "@vercel/blob": "^0.15.1",
+    "@vercel/postgres": "^0.5.1",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^6.20.1",
+    "react-scripts": "^5.0.1",
+    "sequelize": "^6.35.1",
+    "web-vitals": "^1.1.0"
+  }
+}
