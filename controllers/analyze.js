@@ -1,24 +1,24 @@
 const { Storage } = require("@google-cloud/storage");
 const { Anaylize } = require("../database/index");
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config();
 
-const keyFileName_Json = {
-  type: process.env.type,
-  project_id: process.env.project_id,
-  private_key_id: process.env.private_key_id,
-  private_key: process.env.private_key,
-  client_email: process.env.client_email,
-  client_id: process.env.client_id,
-  auth_uri: process.env.auth_uri,
-  token_uri: process.env.token_uri,
-  auth_provider_x509_cert_url: process.env.auth_provider_x509_cert_url,
-  client_x509_cert_url: process.env.client_x509_cert_url,
-  universe_domain: process.env.universe_domain,
-};
+const jsonString = process.env.JSONFILE;
+console.log("Hej?");
+console.log(jsonString); // Log the content
+
+const keyFileName_Json = JSON.parse(process.env.JSONFILE);
+
+// Create a temporary JSON key file
+const tempKeyFilePath = path.join(__dirname, "temp_keyfile.json");
+fs.writeFileSync(tempKeyFilePath, JSON.stringify(keyFileName_Json));
 
 const { bucketName } = require("../config");
 const storage = new Storage({
-  keyFilename: keyFileName_Json,
+  keyFilename: tempKeyFilePath,
 });
+
 exports.createAnalyze = async (req, res, next) => {
   try {
     const file = req.file;
