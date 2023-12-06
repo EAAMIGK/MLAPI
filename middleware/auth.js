@@ -21,7 +21,6 @@ exports.protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secretKey);
-    console.log(decoded);
 
     const foundUser = await User.findByPk(decoded.userId);
 

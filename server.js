@@ -4,8 +4,12 @@ const express = require("express");
 const multer = require("multer");
 const { Storage } = require("@google-cloud/storage");
 const credentialsPath = "kinetic-highway-407111-1902cdd0d9b5.json";
+const dotenv = require("dotenv");
 const cors = require("cors");
 
+dotenv.config({
+  path: "./.env",
+});
 const app = express();
 
 const port = process.env.PORT || 3001;

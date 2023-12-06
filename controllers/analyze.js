@@ -1,5 +1,7 @@
 const { Storage } = require("@google-cloud/storage");
 const { Anaylize } = require("../database/index");
+const axios = require("axios");
+const FormData = require("form-data");
 
 const credentialsPath = "kinetic-highway-407111-1902cdd0d9b5.json";
 
@@ -15,6 +17,30 @@ exports.createAnalyze = async (req, res, next) => {
     if (!file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
+
+    /// MAKING PREDICTION REQUETST
+
+    const formData = new FormData();
+    formData.append("file", req.file.buffer, {
+      filename: req.file.originalname,
+      contentType: req.file.mimetype,
+    });
+
+    // Make a POST request using Axios
+    const response = await axios.post(
+      process.env.FLASK_API_URL + "/predict",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          ...formData.getHeaders(),
+        },
+      }
+    );
+
+    const predication = response.data;
+
+    /// END PREDICATION REQUTEST
 
     const bucket = storage.bucket(bucketName);
     const uniqueFilename =
@@ -41,11 +67,14 @@ exports.createAnalyze = async (req, res, next) => {
 
       imgPath = `https://storage.googleapis.com/${bucketName}/${uniqueFilename}`;
 
+      //The call
       const payload = {
         title: req.body.title,
         description: req.body.description,
         imgPath: imgPath,
         userId: req.userId,
+        predication: predication,
+        //prediction.
       };
       const createdAnalysis = await Anaylize.create(payload);
 
