@@ -5,7 +5,7 @@ const credentialsPath = "kinetic-highway-407111-1902cdd0d9b5.json";
 
 const { bucketName } = require("../config");
 const storage = new Storage({
-  keyFilename: keyFileName_Json,
+  keyFilename: credentialsPath,
 });
 
 exports.createAnalyze = async (req, res, next) => {
