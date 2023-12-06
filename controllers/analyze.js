@@ -1,22 +1,11 @@
 const { Storage } = require("@google-cloud/storage");
 const { Anaylize } = require("../database/index");
-const fs = require("fs");
-const path = require("path");
-require("dotenv").config();
 
-const jsonString = process.env.JSONFILE;
-console.log("Hej?");
-console.log(jsonString); // Log the content
-
-const keyFileName_Json = JSON.parse(process.env.JSONFILE);
-
-// Create a temporary JSON key file
-const tempKeyFilePath = path.join(__dirname, "temp_keyfile.json");
-fs.writeFileSync(tempKeyFilePath, JSON.stringify(keyFileName_Json));
+const credentialsPath = "kinetic-highway-407111-1902cdd0d9b5.json";
 
 const { bucketName } = require("../config");
 const storage = new Storage({
-  keyFilename: tempKeyFilePath,
+  keyFilename: keyFileName_Json,
 });
 
 exports.createAnalyze = async (req, res, next) => {
