@@ -19,7 +19,6 @@ const Anaylize = db.define("Anaylize", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-
   userId: {
     type: DataTypes.INTEGER,
     references: {

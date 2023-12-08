@@ -67,14 +67,12 @@ exports.createAnalyze = async (req, res, next) => {
 
       imgPath = `https://storage.googleapis.com/${bucketName}/${uniqueFilename}`;
 
-      //The call
       const payload = {
         title: req.body.title,
         description: req.body.description,
         imgPath: imgPath,
         userId: req.userId,
         predication: predication,
-        //prediction.
       };
       const createdAnalysis = await Anaylize.create(payload);
 
